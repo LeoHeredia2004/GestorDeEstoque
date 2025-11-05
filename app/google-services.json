@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1052415888125",
+    "project_id": "gestorestoque-a3791",
+    "storage_bucket": "gestorestoque-a3791.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1052415888125:android:3d6881c402c78d1cdb8c94",
+        "android_client_info": {
+          "package_name": "com.example.gestordeestoque"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB198dp48Fgv8eqJBtAdejFfMNQwTQrL-o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
