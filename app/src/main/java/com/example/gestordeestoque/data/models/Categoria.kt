@@ -1,4 +1,4 @@
-package com.example.gestordeestoque.data
+package com.example.gestordeestoque.data.models
 
 data class Categoria(
     val id: String = "",
