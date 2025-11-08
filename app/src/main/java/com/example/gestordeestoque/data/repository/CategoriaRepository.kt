@@ -1,21 +1,47 @@
 package com.example.gestordeestoque.data.repository
+
 import com.example.gestordeestoque.data.models.Categoria
-import com.example.gestordeestoque.data.models.Produto
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.toObject
+import kotlinx.coroutines.tasks.await
 
 class CategoriaRepository {
-    private val categorias = mutableListOf(
-        Categoria(id = "aa", nome = "Categoria1", descricao = "Descrição da categoria 1"),
-        Categoria(id = "bb", nome = "Categoria2",descricao = "Descrição da categoria 2"),
-        Categoria(id = "cc", nome = "Categoria3",descricao = "Descrição da categoria 3"),
-        Categoria(id = "dd", nome = "Categoria4",descricao = "Descrição da categoria 4")
-    )
-    fun getAll(): List<Categoria> = categorias
-    fun deleteProduto(categoria:Categoria){
-        categorias.remove(categoria)
-    }
-    fun addProduto(categoria: Categoria){
-        categorias.add(categoria)
+
+    private val db = FirebaseFirestore.getInstance()
+    private val colecaoCategorias = db.collection("categorias") //
+
+    suspend fun getCategorias(): List<Categoria> {
+        return try {
+            val querySnapshot = colecaoCategorias.get().await()
+            querySnapshot.documents.mapNotNull { document ->
+                val categoria = document.toObject<Categoria>()
+                categoria?.copy(id = document.id)
+            }
+        } catch (e: Exception) {
+            emptyList()
+        }
     }
 
+    suspend fun addCategoria(categoria: Categoria) {
+        try {
+            colecaoCategorias.add(categoria).await()
+        } catch (e: Exception) {
+
+        }
+    }
+
+    suspend fun updateCategoria(categoriaId: String, categoria: Categoria) {
+        try {
+            colecaoCategorias.document(categoriaId).set(categoria).await()
+        } catch (e: Exception) {
+        }
+    }
+
+    suspend fun deleteCategoria(categoriaId: String) {
+        try {
+            colecaoCategorias.document(categoriaId).delete().await()
+        } catch (e: Exception) {
+        }
+    }
 }
 

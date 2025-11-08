@@ -13,6 +13,7 @@ import com.example.gestordeestoque.presentation.screen.home.mainpage
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.gestordeestoque.presentation.screen.cadastro.cadastro
+import com.example.gestordeestoque.presentation.screen.categoria.CadastroCategoriaPage
 import com.example.gestordeestoque.presentation.screen.categoria.CategoriaPage
 import com.example.gestordeestoque.presentation.screen.categoria.CategoriaViewModel
 import com.example.gestordeestoque.presentation.screen.categoria.DetalhesCategoriaPage
@@ -51,10 +52,12 @@ fun Navegador(produtoVM: ProdutoViewModel,categoriaVM: CategoriaViewModel){
             )
         }
 
-       composable("cadastro") {
+        composable("cadastro") {
             cadastro().Cadastro(
-               onVoltarParaPrincipal = { navController.popBackStack()}
-           )
+                onVoltarParaPrincipal = { navController.popBackStack()},
+                produtoVM = produtoVM,
+                categoriaVM = categoriaVM
+            )
         }
 
         composable("produto") {
@@ -66,10 +69,17 @@ fun Navegador(produtoVM: ProdutoViewModel,categoriaVM: CategoriaViewModel){
         }
         composable("categoria") {
             CategoriaPage().CategoriaPageMain(
-                onVoltarParaPrincipal = { navController.popBackStack()},
-                navController = navController,
-                categoriaVM = categoriaVM
+                categoriaVM = categoriaVM,
+                onVoltarParaPrincipal = { navController.popBackStack() },
+                navController = navController
+            )
+        }
 
+        // --- ADICIONE ESTA NOVA ROTA ---
+        composable("cadastrocategoria") {
+            CadastroCategoriaPage().CadastroCategoria(
+                onVoltar = { navController.popBackStack() },
+                categoriaVM = categoriaVM
             )
         }
         composable(
@@ -94,7 +104,8 @@ fun Navegador(produtoVM: ProdutoViewModel,categoriaVM: CategoriaViewModel){
             ).Detalhes(
                 produtoId = produtoId,
                 onVoltarParaProduto = { navController.popBackStack() },
-                produtoVM = produtoVM
+                produtoVM = produtoVM,
+                categoriaVM = categoriaVM
             )
         }
     }
