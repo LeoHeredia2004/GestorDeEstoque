@@ -3,6 +3,7 @@ package com.example.gestordeestoque.presentation.screen.produto
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.gestordeestoque.data.local.AppDatabase // Importe o AppDatabase
 import com.example.gestordeestoque.data.models.Produto
 import com.example.gestordeestoque.data.repository.ProdutoRepository
 import com.google.firebase.Timestamp
@@ -15,10 +16,8 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 class ProdutoViewModel(context: Context) : ViewModel() {
-
-
-    private val repository = ProdutoRepository()
-
+    private val dao = AppDatabase.getInstance(context.applicationContext).produtoDao()
+    private val repository = ProdutoRepository(dao)
 
     private val _produtos = MutableStateFlow<List<Produto>>(emptyList())
     val produtos: StateFlow<List<Produto>> = _produtos.asStateFlow()
@@ -26,13 +25,15 @@ class ProdutoViewModel(context: Context) : ViewModel() {
     private val _query = MutableStateFlow("")
     val query: StateFlow<String> = _query.asStateFlow()
 
-
     init {
+        viewModelScope.launch {
+            repository.getAll().collect { listaVindaDoRoom ->
+                _produtos.value = listaVindaDoRoom
+            }
+        }
 
         viewModelScope.launch {
-            repository.getAll().collect { listaVindaDoFirebase ->
-                _produtos.value = listaVindaDoFirebase
-            }
+            repository.syncFirebaseToLocal()
         }
     }
 
