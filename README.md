@@ -1,10 +1,10 @@
-Gestor de Estoque (Projeto de Aplicativos Móveis)
+# Gestor de Estoque (Projeto de Aplicativos Móveis)
 Este é um aplicativo Android nativo para gerenciamento de estoque, desenvolvido em Kotlin utilizando Jetpack Compose. O projeto foi criado como parte da disciplina de Desenvolvimento de Aplicativos Móveis, demonstrando a implementação de uma arquitetura moderna (MVVM), persistência de dados local (Room) e sincronização em nuvem (Firebase Firestore).
 
-🚀 Funcionalidades
+## Funcionalidades
 O aplicativo permite o gerenciamento completo de produtos e suas respectivas categorias, com as seguintes funcionalidades:
 
-[✅] Gerenciamento de Produtos:
+### - Gerenciamento de Produtos:
 
 Listar e filtrar produtos por nome.
 
@@ -14,7 +14,7 @@ Editar informações detalhadas de um produto (nome, preço, quantidade, categor
 
 Excluir produtos do estoque.
 
-[✅] Gerenciamento de Categorias:
+### - Gerenciamento de Categorias:
 
 Listar e filtrar categorias por nome.
 
@@ -24,13 +24,13 @@ Editar o nome e a descrição de categorias existentes.
 
 Excluir categorias.
 
-[✅] Persistência e Sincronização:
+### - Persistência e Sincronização:
 
 Os dados são armazenados localmente em um banco de dados Room, permitindo o uso offline do app.
 
 O app sincroniza os dados (criação, edição e exclusão) com o Firebase Firestore ao iniciar e ao realizar operações, garantindo um backup na nuvem.
 
-🛠️ Tecnologias Utilizadas
+## Tecnologias Utilizadas
 Linguagem: 100% Kotlin
 
 UI: Jetpack Compose para uma interface de usuário declarativa e moderna.
@@ -43,11 +43,13 @@ Persistência Local: Room (parte do Jetpack) para o banco de dados local SQLite.
 
 Banco de Dados na Nuvem: Firebase Firestore para sincronização de dados.
 
+O banco de dados na nuvem sendo o principal, e o local servindo como cache, isso faz o app funcionar sem internet, e ao adicionar um item sem conexão com a internet, ele aparecera nos menus assim que a conexão for reestabelecida.
+
 Gerenciamento de Estado: ViewModel com StateFlow e collectAsStateWithLifecycle para um gerenciamento de estado reativo e seguro.
 
 Programação Assíncrona: Kotlin Coroutines para gerenciar chamadas de banco de dados e de rede sem travar a UI.
 
-🏛️ Arquitetura
+## Arquitetura
 O projeto segue rigorosamente a arquitetura MVVM, separando as responsabilidades em camadas claras:
 
 View (UI Layer): Composta por Composable functions (ex: ProdutoPage.kt, DetalhesProdutoPage.kt). Esta camada apenas observa o estado do ViewModel e envia eventos de usuário (como cliques).
@@ -62,15 +64,11 @@ data.local (Room DAOs): Define a interface de acesso ao banco de dados local.
 
 FirebaseFirestore: Acesso direto ao SDK do Firebase para operações na nuvem.
 
-📄 Documentação do Projeto
+## Documentação do Projeto
 Os diagramas de fluxo de navegação e da estrutura do banco de dados (relacionamento entre entidades) estão disponíveis nos documentos de planejamento do projeto (Presentation.pdf e Sistema-de-Gerenciamento-de-Estoque.pdf).
-
-(Sugestão: Tire screenshots dos diagramas nesses PDFs e coloque as imagens aqui)
 
 Fluxo de Navegação
 O app utiliza uma MainActivity como container principal (Single-Activity) e o Navigation Compose gerencia a troca entre as telas (Composables).
-
-[IMAGEM DO FLUXO DE NAVEGAÇÃO AQUI]
 
 Estrutura do Banco de Dados (Room e Firestore)
 O banco de dados (local e remoto) é composto por duas entidades principais com um relacionamento 1-N:
@@ -99,9 +97,7 @@ dataCadastro (Long/Timestamp)
 
 categoriaId (String) - Chave estrangeira que referencia o id da Categoria.
 
-[IMAGEM DO DIAGRAMA DE ENTIDADES AQUI]
-
-⚙️ Como Executar o Projeto
+## Como Executar o Projeto
 Pré-requisitos
 Android Studio (versão mais recente recomendada)
 
@@ -133,16 +129,9 @@ Clone este repositório:
 
 Bash
 
-git clone [URL_DO_SEU_REPOSITORIO]
+git clone 
 Abra o projeto no Android Studio.
 
 Espere o Gradle sincronizar (após ter substituído o google-services.json).
 
 Compile e execute o aplicativo em um emulador ou dispositivo Android físico.
-
-👥 Autores (Grupo)
-Leonardo Heredia
-
-(Adicionar nome do Membro 2)
-
-(Adicionar nome do Membro 3)
